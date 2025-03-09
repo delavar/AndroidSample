@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ir.sharif.androidsample.R
 import ir.sharif.androidsample.ui.theme.AndroidSampleTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -33,7 +34,7 @@ class LifeCycleViewModelActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val viewModel = viewModel<CounterViewModel>()
-            val state = viewModel.counter.collectAsState()
+            val state = viewModel.counter.collectAsStateWithLifecycle()
             AndroidSampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(
@@ -44,7 +45,7 @@ class LifeCycleViewModelActivity : ComponentActivity() {
                     ) {
                         CounterButton(
                             modifier = Modifier,
-                            initialCount = state.value,
+                            value = state.value,
                             onCounterChange = viewModel::count
                         )
                     }
@@ -79,13 +80,10 @@ class LifeCycleViewModelActivity : ComponentActivity() {
     }
 
     @Composable
-    fun CounterButton(modifier: Modifier, initialCount: Int, onCounterChange: () -> Unit) {
-        var count by remember { mutableStateOf(initialCount) }
-
+    fun CounterButton(modifier: Modifier, value: Int, onCounterChange: () -> Unit) {
         Column(modifier = modifier) {
-            Text(text = "Count: $count")
+            Text(text = "Count: $value")
             Button(onClick = {
-                count++
                 onCounterChange()
             }) {
                 Text(text = stringResource(R.string.button_counter_text))
