@@ -1,6 +1,7 @@
 package ir.sharif.androidsample.compose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ class Stateful : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            Log.d("Stateful", "setContent")
             HelloContent()
         }
     }
@@ -28,6 +30,7 @@ class Stateful : ComponentActivity() {
 
 @Composable
 fun HelloContent() {
+    Log.d("Stateful", "HelloContent")
     Column(modifier = Modifier.padding(16.dp)) {
         var name by remember { mutableStateOf("") }
         if (name.isNotEmpty()) {

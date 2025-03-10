@@ -1,6 +1,7 @@
 package ir.sharif.androidsample.compose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ class Stateless : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            Log.d("Stateless", "setContent")
             HelloScreen3()
         }
     }
@@ -28,12 +30,14 @@ class Stateless : ComponentActivity() {
 
 @Composable
 fun HelloScreen3() {
+    Log.d("Stateless", "HelloScreen3")
     var name by remember { mutableStateOf("") }
     StatelessContent(name = name, onNameChange = { name = it })
 }
 
 @Composable
 fun StatelessContent(name: String, onNameChange: (String) -> Unit) {
+    Log.d("Stateless", "StatelessContent")
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
             text = "Hello, $name",
