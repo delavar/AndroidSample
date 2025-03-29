@@ -31,6 +31,10 @@
             android:name=".compose.SideEffects"
             android:exported="true"
             android:theme="@style/Theme.AndroidSample" />
+        <activity
+            android:name=".compose.CompositionProviders"
+            android:exported="true"
+            android:theme="@style/Theme.AndroidSample" />
     </application>
 
 </manifest>
