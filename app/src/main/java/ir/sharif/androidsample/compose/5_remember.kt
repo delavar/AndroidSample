@@ -44,6 +44,7 @@ fun NoRememberScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var counter = 0
+        Log.d(TAG, "NoRememberScreen: counter value: $counter")
 
         Text("counter: $counter")
         Button(
@@ -69,6 +70,7 @@ fun RememberScreen() {
     ) {
         // Using remember
         val counter = remember { mutableIntStateOf(0) }
+        Log.d(TAG, "RememberScreen: counter value: ${counter.intValue}")
 
         Text("counter: ${counter.intValue}")
         Button(
@@ -94,6 +96,11 @@ fun RememberSaveableScreen() {
 
         // Using rememberSaveable - will survive configuration changes
         val savedCounter = rememberSaveable { mutableIntStateOf(0) }
+        Log.d(
+            TAG,
+            "RememberSaveableScreen: counter regularCounter: ${regularCounter.intValue} , savedCounter: ${savedCounter.intValue}"
+        )
+
 
         Text("Regular counter (remember): ${regularCounter.value}")
         Button(

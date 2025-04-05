@@ -132,8 +132,6 @@ fun SideEffectScreen() {
         val counter = remember { mutableIntStateOf(0) }
         val text = remember { mutableStateOf("") }
 
-        // SideEffect runs on every successful recomposition
-        // It's useful for synchronizing Compose state with non-Compose code
         SideEffect {
             text.value = "SideEffect: Composition completed with counter=${counter.intValue}"
         }

@@ -23,18 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".compose.Remember"
-            android:exported="true"
-            android:theme="@style/Theme.AndroidSample" />
-        <activity
-            android:name=".compose.SideEffects"
-            android:exported="true"
-            android:theme="@style/Theme.AndroidSample" />
-        <activity
-            android:name=".compose.CompositionProviders"
-            android:exported="true"
-            android:theme="@style/Theme.AndroidSample" />
     </application>
 
 </manifest>
