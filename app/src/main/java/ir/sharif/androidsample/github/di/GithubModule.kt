@@ -2,12 +2,15 @@ package ir.sharif.androidsample.github.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import ir.sharif.androidsample.github.data.database_room.GithubRoomDatabase
+import ir.sharif.androidsample.github.data.database_room.dao.GithubRepoDao
 import ir.sharif.androidsample.github.data.repository.GithubRepository
-import ir.sharif.androidsample.github.data.source.GithubApi
 import ir.sharif.androidsample.github.data.repository.UserRepository
-import ir.sharif.androidsample.github.data.source.UserNetworkDataSource
+import ir.sharif.androidsample.github.data.source.GithubApi
 import ir.sharif.androidsample.github.data.source.LastUserDataSource
+import ir.sharif.androidsample.github.data.source.RepoLocalDataSource
 import ir.sharif.androidsample.github.data.source.RepoNetworkDataSource
+import ir.sharif.androidsample.github.data.source.UserNetworkDataSource
 import ir.sharif.androidsample.github.domain.usecase.UserDetailUseCase
 import ir.sharif.androidsample.github.ui.detail.UserDetailViewModel
 import ir.sharif.androidsample.github.ui.username.UsernameViewModel
@@ -59,11 +62,22 @@ object GithubModule {
         return RepoNetworkDataSource(provideGithubApi())
     }
 
-    fun provideGithubRepository(): GithubRepository {
+    fun provideGithubRepository(context: Context): GithubRepository {
+        val database = provideRoomDatabase(context)
+        val reposLocalDataSource = provideReposLocalDataSource(database.githubRepoDao())
         val reposNetworkDataSource = provideReposNetworkDataSource()
         return GithubRepository(
             reposNetworkDataSource = reposNetworkDataSource,
+            reposLocalDataSource = reposLocalDataSource,
         )
+    }
+
+    private fun provideReposLocalDataSource(dao: GithubRepoDao): RepoLocalDataSource {
+        return RepoLocalDataSource(dao)
+    }
+
+    private fun provideRoomDatabase(context: Context): GithubRoomDatabase {
+        return GithubRoomDatabase.getDatabase(context = context)
     }
 
     fun provideUserRepository(context: Context): UserRepository {
@@ -77,7 +91,7 @@ object GithubModule {
 
     fun provideUserDetailUseCase(context: Context): UserDetailUseCase {
         return UserDetailUseCase(
-            githubRepository = provideGithubRepository(),
+            githubRepository = provideGithubRepository(context),
             userRepository = provideUserRepository(context)
         )
     }
