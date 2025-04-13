@@ -1,4 +1,4 @@
-package ir.sharif.androidsample.github.data.database.dao
+package ir.sharif.androidsample.github.data.database_room.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import ir.sharif.androidsample.github.data.database.entity.GithubRepoEntity
+import ir.sharif.androidsample.github.data.database_room.entity.GithubRepoEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -23,7 +23,7 @@ interface GithubRepoDao {
     fun getAllFlow(): Flow<List<GithubRepoEntity>>
 
     @Query("SELECT * FROM github_repo WHERE owner_username = :ownerUsername")
-    suspend fun getByName(ownerUsername: String): GithubRepoEntity?
+    suspend fun getByOwnerUsername(ownerUsername: String): List<GithubRepoEntity>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(repo: GithubRepoEntity)
