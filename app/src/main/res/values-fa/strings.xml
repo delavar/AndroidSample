@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">اندروید سمپل</string>
     <string name="button_counter_text">"بشمار"</string>
+    <string name="general_error_fetching">خطایی در دریافت اطلاعات به وجود آمده است. لطفاً دوباره تلاش کنید.</string>
+    <string name="github_user_fetch_error">خطایی در دریافت اطلاعات این کاربر گیت‌هاب به وجود آمده است. لطفاً بعداً تلاش کنید.</string>
 </resources>
